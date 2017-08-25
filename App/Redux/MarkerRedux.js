@@ -5,6 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   markersRequest: null,
+  // markers -> in success function will be accesible from action.success
   markersSuccess: ['markers'],
   markersFailure: null
 })
@@ -24,8 +25,6 @@ export const INITIAL_STATE = Immutable({
 
 // request the avatar for a user
 export const request = (state) => {
-  console.log('reducer')
-  
   state.merge({ fetching: true })
   return state;
 }
@@ -38,7 +37,7 @@ export const success = (state, action) => {
 }
 
 // failed to get the avatar
-export const failure = (state) =>
+export const failure = (state, error) =>
   state.merge({ fetching: false, error: true, avatar: null })
 
 /* ------------- Hookup Reducers To Types ------------- */
